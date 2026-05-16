@@ -1,0 +1,61 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planters",
+  "ingredients": [
+    {
+      "item":"minecraft:yellow_dye"
+    },
+    [
+      {
+        "item":"gardens_and_critters:black_planter"
+      },
+      {
+        "item":"gardens_and_critters:blue_planter"
+      },
+      {
+        "item":"gardens_and_critters:brown_planter"
+      },
+      {
+        "item":"gardens_and_critters:cyan_planter"
+      },
+      {
+        "item":"gardens_and_critters:gray_planter"
+      },
+      {
+        "item":"gardens_and_critters:green_planter"
+      },
+      {
+        "item":"gardens_and_critters:light_blue_planter"
+      },
+      {
+        "item":"gardens_and_critters:light_gray_planter"
+      },
+      {
+        "item":"gardens_and_critters:lime_planter"
+      },
+      {
+        "item":"gardens_and_critters:magenta_planter"
+      },
+      {
+        "item":"gardens_and_critters:orange_planter"
+      },
+      {
+        "item":"gardens_and_critters:pink_planter"
+      },
+      {
+        "item":"gardens_and_critters:purple_planter"
+      },
+      {
+        "item":"gardens_and_critters:red_planter"
+      },
+      {
+        "item":"gardens_and_critters:white_planter"
+      }
+    ]
+  ],
+  "result": {
+    "count": 1,
+    "id": "gardens_and_critters:yellow_planter"
+  }
+}

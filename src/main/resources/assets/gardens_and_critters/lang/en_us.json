@@ -1,0 +1,38 @@
+{
+  "block.gardens_and_critters.planter": "Planter",
+  "block.gardens_and_critters.white_planter": "White Planter",
+  "block.gardens_and_critters.light_gray_planter": "Light Gray Planter",
+  "block.gardens_and_critters.gray_planter": "Gray Planter",
+  "block.gardens_and_critters.black_planter": "Black Planter",
+  "block.gardens_and_critters.brown_planter": "Brown Planter",
+  "block.gardens_and_critters.red_planter": "Red Planter",
+  "block.gardens_and_critters.orange_planter": "Orange Planter",
+  "block.gardens_and_critters.yellow_planter": "Yellow Planter",
+  "block.gardens_and_critters.lime_planter": "Lime Planter",
+  "block.gardens_and_critters.green_planter": "Green Planter",
+  "block.gardens_and_critters.cyan_planter": "Cyan Planter",
+  "block.gardens_and_critters.light_blue_planter": "Light Blue Planter",
+  "block.gardens_and_critters.blue_planter": "Blue Planter",
+  "block.gardens_and_critters.purple_planter": "Purple Planter",
+  "block.gardens_and_critters.magenta_planter": "Magenta Planter",
+  "block.gardens_and_critters.pink_planter": "Pink Planter",
+
+  "item.gardens_and_critters.snail_spawn_egg": "Snail Spawn Egg",
+
+  "entity.gardens_and_critters.snail": "Snail",
+
+  "creativetab.gardens_and_critters.blocks": "G&C Blocks",
+  "creativetab.gardens_and_critters.items": "G&C Items",
+  
+  "tag.block.gardens_and_critters.planters": "Planters",
+  "tag.block.gardens_and_critters.sustains_mushrooms": "Sustains Mushrooms",
+
+  "tag.block.gardens_and_critters.dirt_sustains": "Dirt Sustains",
+  "tag.block.gardens_and_critters.mycelium_sustains": "Mycelium Sustains",
+  "tag.block.gardens_and_critters.sand_sustains": "Sand Sustains",
+  "tag.block.gardens_and_critters.soul_sand_sustains": "Soul Sand Sustains",
+  "tag.block.gardens_and_critters.nylium_sustains": "Nylium Sustains",
+  "tag.block.gardens_and_critters.end_stone_sustains": "End Stone Sustains",
+
+  "pack.gardens_and_critters.gardens_and_critters_pa": "Gardens and Critters PA"
+}

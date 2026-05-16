@@ -1,0 +1,9 @@
+{
+	"parent":"gardens_and_critters:block/planter",
+	"textures":{
+		"0": "gardens_and_critters:block/white_planter_top",
+		"1": "gardens_and_critters:block/white_planter_side",
+		"2": "gardens_and_critters:block/white_planter_bottom",
+		"particle": "minecraft:block/white_terracotta"
+	}
+}

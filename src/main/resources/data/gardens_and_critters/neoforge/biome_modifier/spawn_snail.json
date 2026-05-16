@@ -1,0 +1,12 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#gardens_and_critters:spawns_snail",
+  "spawners": [
+    {
+      "type": "gardens_and_critters:snail",
+      "weight": 20,
+      "minCount": 2,
+      "maxCount": 4
+    }
+  ]
+}

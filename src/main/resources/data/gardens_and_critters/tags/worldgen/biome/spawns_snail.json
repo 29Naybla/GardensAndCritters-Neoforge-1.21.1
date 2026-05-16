@@ -1,0 +1,14 @@
+{
+  "values": [
+    "minecraft:swamp",
+    "#minecraft:is_jungle",
+    "minecraft:river",
+    "minecraft:forest",
+    "minecraft:flower_forest",
+    "minecraft:dark_forest",
+    {
+      "id": "environmental:marsh",
+      "required": false
+    }
+  ]
+}

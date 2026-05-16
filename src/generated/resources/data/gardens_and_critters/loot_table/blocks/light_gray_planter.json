@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "gardens_and_critters:light_gray_planter"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "gardens_and_critters:blocks/light_gray_planter"
+}
