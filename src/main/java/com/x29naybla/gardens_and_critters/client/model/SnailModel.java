@@ -64,7 +64,7 @@ public class SnailModel<T extends Snail> extends HierarchicalModel<T> {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.applyHeadRotation(netHeadYaw, headPitch);
 
-        this.animateWalk(SnailAnimations.SNAIL_WALK, limbSwing, limbSwingAmount, 8f, 40f);
+        this.animateWalk(SnailAnimations.SNAIL_WALK, limbSwing*6, limbSwingAmount*5, 2f, 2.5f);
     }
 
     private void applyHeadRotation(float headYaw, float headPitch) {

@@ -1,31 +1,27 @@
 package com.x29naybla.gardens_and_critters.common.entity;
 
 import com.x29naybla.gardens_and_critters.common.registry.GnCEntities;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.stats.Stats;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent;
 import org.jetbrains.annotations.Nullable;
+
+import static net.neoforged.neoforge.common.NeoForge.EVENT_BUS;
 
 public class Snail extends Animal {
     private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Snail.class, EntityDataSerializers.BYTE);
@@ -72,6 +68,34 @@ public class Snail extends Animal {
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
         return GnCEntities.SNAIL.get().create(level);
+    }
+
+    @Override
+    public void spawnChildFromBreeding(ServerLevel level, Animal mate) {
+        Snail snail1 = (Snail) this.getBreedOffspring(level, mate);
+        Snail snail2 = (Snail) this.getBreedOffspring(level, mate);
+        final BabyEntitySpawnEvent event1 = new BabyEntitySpawnEvent(this, mate, snail1);
+        final BabyEntitySpawnEvent event2 = new BabyEntitySpawnEvent(this, mate, snail2);
+        final boolean cancelled = EVENT_BUS.post(event1).isCanceled() && EVENT_BUS.post(event2).isCanceled();
+        if (cancelled) {
+            this.setAge(6000);
+            mate.setAge(6000);
+            this.resetLove();
+            mate.resetLove();
+            return;
+        }
+        if (snail1 != null) {
+            snail1.setBaby(true);
+            snail1.moveTo(this.getX()+0.125, this.getY(), this.getZ()+0.125, 0.0F, 0.0F);
+            this.finalizeSpawnChildFromBreeding(level, mate, snail1);
+            level.addFreshEntityWithPassengers(snail1);
+        }
+        if (snail2 != null) {
+            snail2.setBaby(true);
+            snail2.moveTo(this.getX()-0.125, this.getY(), this.getZ()-0.125, 0.0F, 0.0F);
+            this.finalizeSpawnChildFromBreeding(level, mate, snail2);
+            level.addFreshEntityWithPassengers(snail2);
+        }
     }
 
     //Data
