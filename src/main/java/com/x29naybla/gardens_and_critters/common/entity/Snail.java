@@ -2,13 +2,14 @@ package com.x29naybla.gardens_and_critters.common.entity;
 
 import com.x29naybla.gardens_and_critters.common.registry.GnCEntities;
 import com.x29naybla.gardens_and_critters.common.tag.GnCTags;
+import net.minecraft.Util;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -18,6 +19,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,6 +27,7 @@ import static net.neoforged.neoforge.common.NeoForge.EVENT_BUS;
 
 public class Snail extends Animal {
     private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Snail.class, EntityDataSerializers.BYTE);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Snail.class, EntityDataSerializers.INT);
     public final AnimationState idleAnimationState = new AnimationState();
 
     public Snail(EntityType<? extends Animal> entityType, Level level) {
@@ -37,6 +40,22 @@ public class Snail extends Animal {
                 .add(Attributes.MAX_HEALTH, 8d)
                 .add(Attributes.MOVEMENT_SPEED, 0.1d)
                 .add(Attributes.FOLLOW_RANGE, 24d);
+    }
+
+    //protected static double generateSpeed(DoubleSupplier supplier) {
+    //    return (0.1d + supplier.getAsDouble() * 0.3);
+    //}
+
+    //protected void randomizeAttributes(RandomSource random) {
+    //    this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(generateSpeed(random::nextDouble));
+    //}
+
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+    //    this.randomizeAttributes(level.getRandom());
+        SnailVariant variant = Util.getRandom(SnailVariant.values(), this.random);
+        this.setVariant(variant);
+
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 
     private void setupAnimationStates() {}
@@ -67,7 +86,9 @@ public class Snail extends Animal {
 
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        return GnCEntities.SNAIL.get().create(level);
+        Snail baby = GnCEntities.SNAIL.get().create(level);
+        baby.setVariant(this.getVariant());
+        return baby;
     }
 
     @Override
@@ -103,6 +124,19 @@ public class Snail extends Animal {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DATA_FLAGS_ID, (byte)0);
+        builder.define(VARIANT, 0);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("Variant", this.getTypeVariant());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.entityData.set(VARIANT, compound.getInt("Variant"));
     }
 
     @Override
@@ -135,5 +169,18 @@ public class Snail extends Animal {
         }
 
         this.entityData.set(DATA_FLAGS_ID, b0);
+    }
+
+    //Variants
+    private int getTypeVariant(){
+        return this.entityData.get(VARIANT);
+    }
+
+    public SnailVariant getVariant(){
+        return SnailVariant.byId(this.getTypeVariant() & 255);
+    }
+
+    private void setVariant(SnailVariant variant){
+        this.entityData.set(VARIANT, variant.getId() & 255);
     }
 }
