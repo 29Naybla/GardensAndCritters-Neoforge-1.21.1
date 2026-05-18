@@ -42,19 +42,20 @@ public class SnailModel<T extends Snail> extends HierarchicalModel<T> {
 
         PartDefinition snail = partdefinition.addOrReplaceChild("snail", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, -1.0F));
 
-        PartDefinition foot = snail.addOrReplaceChild("foot", CubeListBuilder.create().texOffs(0, 19).addBox(-1.0F, -4.0F, -2.0F, 5.0F, 4.0F, 11.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.0F, 0.0F, 0.0F));
+        PartDefinition foot = snail.addOrReplaceChild("foot", CubeListBuilder.create().texOffs(0, 19).addBox(-2.0F, -5.0F, -2.0F, 7.0F, 5.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.0F, 0.0F, 0.0F));
 
-        PartDefinition head = snail.addOrReplaceChild("head", CubeListBuilder.create().texOffs(22, 21).addBox(-2.0F, -2.5F, -4.0F, 5.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.5F, -2.0F));
+        PartDefinition head = snail.addOrReplaceChild("head", CubeListBuilder.create().texOffs(27, 21).addBox(-3.0F, -3.5F, -4.0F, 7.0F, 5.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.5F, -2.0F));
 
-        PartDefinition left_eye = head.addOrReplaceChild("left_eye", CubeListBuilder.create().texOffs(6, -1).addBox(0.0F, -5.5F, -0.5F, 0.0F, 5.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.0F, -1.0F, -3.0F, 0.4363F, 0.4363F, 0.4363F));
+        PartDefinition left_eye = head.addOrReplaceChild("left_eye", CubeListBuilder.create().texOffs(50, 19).addBox(-1.0F, -6.5F, -0.5F, 1.0F, 6.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(3.0F, -2.0F, -3.0F, 0.4363F, 0.4363F, 0.4363F));
 
-        PartDefinition right_eye = head.addOrReplaceChild("right_eye", CubeListBuilder.create().texOffs(3, -1).addBox(0.0F, -5.5F, -0.4F, 0.0F, 5.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.0F, -1.0F, -3.0F, 0.4363F, -0.4363F, -0.4363F));
+        PartDefinition right_eye = head.addOrReplaceChild("right_eye", CubeListBuilder.create().texOffs(50, 19).addBox(0.0F, -6.5F, -0.4F, 1.0F, 6.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.0F, -2.0F, -3.0F, 0.4363F, -0.4363F, -0.4363F));
 
-        PartDefinition right_tentacle = head.addOrReplaceChild("right_tentacle", CubeListBuilder.create().texOffs(3, 5).addBox(0.0F, -1.5F, -0.5F, 0.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.5F, -0.5F, -4.2F, 2.0071F, 0.0F, 0.4363F));
+        PartDefinition right_tentacle = head.addOrReplaceChild("right_tentacle", CubeListBuilder.create().texOffs(50, 26).addBox(0.0F, -1.5F, -0.5F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.5F, -0.5F, -4.2F, 2.0071F, 0.0F, 0.4363F));
 
-        PartDefinition left_tentacle = head.addOrReplaceChild("left_tentacle", CubeListBuilder.create().texOffs(6, 5).addBox(0.0F, -1.5F, -0.5F, 0.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.4F, -0.5F, -4.2F, 2.0071F, 0.0F, -0.4363F));
+        PartDefinition left_tentacle = head.addOrReplaceChild("left_tentacle", CubeListBuilder.create().texOffs(50, 27).addBox(-1.0F, -1.5F, -0.5F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(3.4F, -0.5F, -4.2F, 2.0071F, 0.0F, -0.4363F));
 
-        PartDefinition shell = snail.addOrReplaceChild("shell", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -5.0F, -4.0F, 6.0F, 9.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -6.0F, 3.0F));
+        PartDefinition shell = snail.addOrReplaceChild("shell", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -5.0F, -4.1F, 9.0F, 9.0F, 9.0F, new CubeDeformation(0.0F))
+                .texOffs(37, 13).addBox(-4.0F, 0.0F, -5.1F, 9.0F, 4.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -7.0F, 3.0F));
 
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
@@ -64,7 +65,10 @@ public class SnailModel<T extends Snail> extends HierarchicalModel<T> {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.applyHeadRotation(netHeadYaw, headPitch);
 
-        this.animateWalk(SnailAnimations.SNAIL_WALK, limbSwing*6, limbSwingAmount*5, 2f, 2.5f);
+        if(entity.isBaby()){
+            this.animateWalk(SnailAnimations.SNAIL_WALK, limbSwing*3, limbSwingAmount*5, 2f, 2.5f);
+        }else
+            this.animateWalk(SnailAnimations.SNAIL_WALK, limbSwing*6, limbSwingAmount*5, 2f, 2.5f);
     }
 
     private void applyHeadRotation(float headYaw, float headPitch) {

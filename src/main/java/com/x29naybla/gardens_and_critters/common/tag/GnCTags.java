@@ -37,7 +37,6 @@ public class GnCTags {
         public static final TagKey<Item> SUSTAINS_MUSHROOMS = createTag("sustains_mushrooms");
 
         public static final TagKey<Item> SNAIL_FOOD = createTag("snail_food");
-        public static final TagKey<Item> SNAIL_TEMPT_ITEMS =  createTag("snail_tempt_items");
 
         private static TagKey<Item> createTag(String name){
             return ItemTags.create(ResourceLocation.fromNamespaceAndPath(GardensandCritters.MODID, name));

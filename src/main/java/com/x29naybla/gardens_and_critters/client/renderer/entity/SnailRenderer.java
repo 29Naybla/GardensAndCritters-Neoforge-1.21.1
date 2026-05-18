@@ -16,7 +16,10 @@ public class SnailRenderer extends MobRenderer<Snail, SnailModel<Snail>> {
 
     @Override
     public ResourceLocation getTextureLocation(Snail entity) {
-        return ResourceLocation.fromNamespaceAndPath(GardensandCritters.MODID, "textures/entity/snail.png");
+        if (entity.isLeftHanded()){
+            return ResourceLocation.fromNamespaceAndPath(GardensandCritters.MODID, "textures/entity/snail/left/snail_cream.png");
+        } else
+            return ResourceLocation.fromNamespaceAndPath(GardensandCritters.MODID, "textures/entity/snail/right/snail_cream.png");
     }
 
     @Override

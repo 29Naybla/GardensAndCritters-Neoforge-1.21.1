@@ -1,6 +1,7 @@
 package com.x29naybla.gardens_and_critters.common.entity;
 
 import com.x29naybla.gardens_and_critters.common.registry.GnCEntities;
+import com.x29naybla.gardens_and_critters.common.tag.GnCTags;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -17,7 +18,6 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,7 +48,7 @@ public class Snail extends Animal {
 
         this.goalSelector.addGoal(1, new PanicGoal(this, 2));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, stack -> stack.is(Tags.Items.MUSHROOMS), false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, stack -> stack.is(GnCTags.Items.SNAIL_FOOD), false));
 
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6));
@@ -62,7 +62,7 @@ public class Snail extends Animal {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(Tags.Items.MUSHROOMS);
+        return stack.is(GnCTags.Items.SNAIL_FOOD);
     }
 
     @Override

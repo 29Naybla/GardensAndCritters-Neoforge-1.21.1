@@ -42,6 +42,12 @@ public class ItemTags extends ItemTagsProvider {
                 .addOptional(ResourceLocation.parse("farmersdelight:organic_compost"))
                 .addOptional(ResourceLocation.parse("farmersdelight:rich_soil"));
 
+        tag(GnCTags.Items.SNAIL_FOOD)
+                .add(Items.CARROT)
+                .add(Items.GOLDEN_CARROT)
+                .add(Items.DANDELION)
+                .addTag(Tags.Items.EGGS);
+
         //Common Tags
         tag(Tags.Items.DYED_WHITE)
                 .add(GnCBlocks.WHITE_PLANTER.asItem());
