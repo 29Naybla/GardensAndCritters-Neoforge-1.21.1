@@ -23,6 +23,8 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
+
 import static net.neoforged.neoforge.common.NeoForge.EVENT_BUS;
 
 public class Snail extends Animal {
@@ -39,7 +41,8 @@ public class Snail extends Animal {
         return Animal.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 8d)
                 .add(Attributes.MOVEMENT_SPEED, 0.1d)
-                .add(Attributes.FOLLOW_RANGE, 24d);
+                .add(Attributes.FOLLOW_RANGE, 24d)
+                .add(Attributes.JUMP_STRENGTH, 0d);
     }
 
     //protected static double generateSpeed(DoubleSupplier supplier) {
@@ -52,8 +55,26 @@ public class Snail extends Animal {
 
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
     //    this.randomizeAttributes(level.getRandom());
-        SnailVariant variant = Util.getRandom(SnailVariant.values(), this.random);
-        this.setVariant(variant);
+        SnailVariant[] snailVariant = Arrays.stream(SnailVariant.values()).filter(SnailVariant::isCommon).toArray(SnailVariant[]::new);
+        SnailVariant randomVariant = Util.getRandom(snailVariant, this.random);
+
+        this.setVariant(SnailVariant.CREAM);
+        if(level.getBiome(getOnPos()).is(GnCTags.Biomes.SNAILS_ARE_CREAM_VARIANT) && level.getBiome(getOnPos()).is(GnCTags.Biomes.SNAILS_ARE_CREAM_VARIANT)) {
+            if(getRandom().nextInt(10) <= 4){
+                this.setVariant(SnailVariant.LEMON);
+            }
+        } else if(level.getBiome(getOnPos()).is(GnCTags.Biomes.SNAILS_ARE_LEMON_VARIANT) && !level.getBiome(getOnPos()).is(GnCTags.Biomes.SNAILS_ARE_CREAM_VARIANT)){
+            this.setVariant(SnailVariant.LEMON);
+        } else if(level.getBiome(getOnPos()).is(GnCTags.Biomes.SNAILS_ARE_NAUTILUS_VARIANT)) {
+            this.setVariant(SnailVariant.NAUTILUS);
+        } else if(level.getBiome(getOnPos()).is(GnCTags.Biomes.SNAILS_ARE_GREEN_VARIANT)){
+            this.setVariant(SnailVariant.GREEN);
+        } else if(level.getBiome(getOnPos()).is(GnCTags.Biomes.SNAILS_ARE_BLACK_VARIANT)){
+            this.setVariant(SnailVariant.BLACK);
+        } else if(level.getBiome(getOnPos()).is(GnCTags.Biomes.SNAILS_ARE_LIME_VARIANT)) {
+            this.setVariant(SnailVariant.LIME);
+        } else
+            this.setVariant(randomVariant);
 
         return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
@@ -85,9 +106,22 @@ public class Snail extends Animal {
     }
 
     @Override
+    public boolean canMate(Animal otherAnimal) {
+        if (otherAnimal == this) {
+            return false;
+        } else if ((this.isLeftHanded() && otherAnimal.isLeftHanded()) || (!this.isLeftHanded() && !otherAnimal.isLeftHanded())) {
+            return otherAnimal.getClass() == this.getClass() && this.isInLove() && otherAnimal.isInLove();
+        } else return false;
+    }
+
+    @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
         Snail baby = GnCEntities.SNAIL.get().create(level);
-        baby.setVariant(this.getVariant());
+        if(getRandom().nextInt(10) <= 4){
+            baby.setVariant(this.getVariant());
+        } else
+            baby.setVariant(((Snail) otherParent).getVariant());
+
         return baby;
     }
 

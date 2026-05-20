@@ -50,7 +50,7 @@ public class SnailModel<T extends Snail> extends HierarchicalModel<T> {
 
         PartDefinition right_eye = head.addOrReplaceChild("right_eye", CubeListBuilder.create().texOffs(50, 19).addBox(0.0F, -6.5F, -0.4F, 1.0F, 6.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.0F, -2.0F, -3.0F, 0.4363F, -0.4363F, -0.4363F));
 
-        PartDefinition right_tentacle = head.addOrReplaceChild("right_tentacle", CubeListBuilder.create().texOffs(50, 26).addBox(0.0F, -1.5F, -0.5F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.5F, -0.5F, -4.2F, 2.0071F, 0.0F, 0.4363F));
+        PartDefinition right_tentacle = head.addOrReplaceChild("right_tentacle", CubeListBuilder.create().texOffs(50, 27).addBox(0.0F, -1.5F, -0.5F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.5F, -0.5F, -4.2F, 2.0071F, 0.0F, 0.4363F));
 
         PartDefinition left_tentacle = head.addOrReplaceChild("left_tentacle", CubeListBuilder.create().texOffs(50, 27).addBox(-1.0F, -1.5F, -0.5F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(3.4F, -0.5F, -4.2F, 2.0071F, 0.0F, -0.4363F));
 

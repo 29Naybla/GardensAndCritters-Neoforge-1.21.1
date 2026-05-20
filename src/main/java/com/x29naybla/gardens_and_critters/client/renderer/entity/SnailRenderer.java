@@ -17,23 +17,31 @@ import java.util.Map;
 public class SnailRenderer extends MobRenderer<Snail, SnailModel<Snail>> {
     private static final Map<SnailVariant, ResourceLocation> LOCATION_BY_VARIANT_RIGHT =
             Util.make(Maps.newEnumMap(SnailVariant.class), map -> {
-                map.put(SnailVariant.CREAM,
-                        ResourceLocation.fromNamespaceAndPath(GardensandCritters.MODID, "textures/entity/snail/right/snail_cream.png"));
-                map.put(SnailVariant.GREEN,
-                        ResourceLocation.fromNamespaceAndPath(GardensandCritters.MODID, "textures/entity/snail/right/snail_green.png"));
-                map.put(SnailVariant.NAUTILUS,
-                        ResourceLocation.fromNamespaceAndPath(GardensandCritters.MODID, "textures/entity/snail/right/snail_nautilus.png"));
+                map.put(SnailVariant.CREAM, getRightTexture("cream"));
+                map.put(SnailVariant.GREEN, getRightTexture("green"));
+                map.put(SnailVariant.BLACK, getRightTexture("black"));
+                map.put(SnailVariant.LIME, getRightTexture("lime"));
+                map.put(SnailVariant.LEMON, getRightTexture("lemon"));
+                map.put(SnailVariant.NAUTILUS, getRightTexture("nautilus"));
             });
 
     private static final Map<SnailVariant, ResourceLocation> LOCATION_BY_VARIANT_LEFT =
             Util.make(Maps.newEnumMap(SnailVariant.class), map -> {
-                map.put(SnailVariant.CREAM,
-                        ResourceLocation.fromNamespaceAndPath(GardensandCritters.MODID, "textures/entity/snail/left/snail_cream.png"));
-                map.put(SnailVariant.GREEN,
-                        ResourceLocation.fromNamespaceAndPath(GardensandCritters.MODID, "textures/entity/snail/left/snail_green.png"));
-                map.put(SnailVariant.NAUTILUS,
-                        ResourceLocation.fromNamespaceAndPath(GardensandCritters.MODID, "textures/entity/snail/left/snail_nautilus.png"));
+                map.put(SnailVariant.CREAM, getLeftTexture("cream"));
+                map.put(SnailVariant.GREEN, getLeftTexture("green"));
+                map.put(SnailVariant.BLACK, getLeftTexture("black"));
+                map.put(SnailVariant.LIME, getLeftTexture("lime"));
+                map.put(SnailVariant.LEMON, getLeftTexture("lemon"));
+                map.put(SnailVariant.NAUTILUS, getLeftTexture("nautilus"));
             });
+
+    private static ResourceLocation getRightTexture(String name){
+        return ResourceLocation.fromNamespaceAndPath(GardensandCritters.MODID, "textures/entity/snail/right/snail_"+name+".png");
+    }
+
+    private static ResourceLocation getLeftTexture(String name){
+        return ResourceLocation.fromNamespaceAndPath(GardensandCritters.MODID, "textures/entity/snail/left/snail_"+name+".png");
+    }
 
     public SnailRenderer(EntityRendererProvider.Context context) {
         super(context, new SnailModel<>(context.bakeLayer(SnailModel.LAYER_LOCATION)), 0.45F);

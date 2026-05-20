@@ -92,6 +92,11 @@ public class BlockTags extends BlockTagsProvider {
         tag(GnCTags.Blocks.END_STONE_SUSTAINS)
                 .add(Blocks.CHORUS_FLOWER);
 
+        tag(GnCTags.Blocks.SNAILS_SPAWNABLE_ON)
+                .add(Blocks.GRASS_BLOCK)
+                .add(Blocks.COARSE_DIRT)
+                .add(Blocks.PODZOL);
+
         //Common Tags
         tag(Tags.Blocks.DYED_WHITE)
                 .add(GnCBlocks.WHITE_PLANTER.get());

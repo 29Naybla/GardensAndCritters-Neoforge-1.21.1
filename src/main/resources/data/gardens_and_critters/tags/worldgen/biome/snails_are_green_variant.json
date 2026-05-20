@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:swamp",
+    {
+      "id": "environmental:marsh",
+      "required": false
+    }
+  ]
+}

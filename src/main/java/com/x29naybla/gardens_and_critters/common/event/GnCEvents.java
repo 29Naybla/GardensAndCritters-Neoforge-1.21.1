@@ -5,9 +5,15 @@ import com.x29naybla.gardens_and_critters.client.model.SnailModel;
 import com.x29naybla.gardens_and_critters.common.entity.Snail;
 import com.x29naybla.gardens_and_critters.common.registry.GnCEntities;
 import com.x29naybla.gardens_and_critters.common.registry.GnCItems;
+import com.x29naybla.gardens_and_critters.common.tag.GnCTags;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -41,6 +47,13 @@ public class GnCEvents {
     @SubscribeEvent
     public static void registerSpawnPlacement(RegisterSpawnPlacementsEvent event){
         event.register(GnCEntities.SNAIL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                Animal::checkAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+                GnCEvents::checkSnailSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+    }
+
+    public static boolean checkSnailSpawnRules(
+            EntityType<? extends Animal> animal, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random
+    ) {
+        boolean flag = MobSpawnType.ignoresLightRequirements(spawnType) || level.getRawBrightness(pos, 0) > 8;
+        return level.getBlockState(pos.below()).is(GnCTags.Blocks.SNAILS_SPAWNABLE_ON) && flag;
     }
 }

@@ -1,6 +1,6 @@
 {
   "type": "neoforge:add_spawns",
-  "biomes": "#gardens_and_critters:spawns_snail",
+  "biomes": "#gardens_and_critters:spawns_snails",
   "spawners": [
     {
       "type": "gardens_and_critters:snail",
