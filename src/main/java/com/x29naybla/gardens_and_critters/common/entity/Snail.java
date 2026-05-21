@@ -3,13 +3,17 @@ package com.x29naybla.gardens_and_critters.common.entity;
 import com.x29naybla.gardens_and_critters.common.registry.GnCEntities;
 import com.x29naybla.gardens_and_critters.common.tag.GnCTags;
 import net.minecraft.Util;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -20,11 +24,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
 import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.function.DoubleSupplier;
 
 import static net.neoforged.neoforge.common.NeoForge.EVENT_BUS;
 
@@ -46,34 +52,37 @@ public class Snail extends Animal {
                 .add(Attributes.JUMP_STRENGTH, 0d);
     }
 
-    //protected static double generateSpeed(DoubleSupplier supplier) {
-    //    return (0.1d + supplier.getAsDouble() * 0.3);
-    //}
+    protected static double generateSpeed(DoubleSupplier supplier) {
+        return (0.1d + supplier.getAsDouble()*(0.02-(-0.02))+(-0.02));
+    }
 
-    //protected void randomizeAttributes(RandomSource random) {
-    //    this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(generateSpeed(random::nextDouble));
-    //}
+    protected void randomizeAttributes(RandomSource random) {
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(generateSpeed(random::nextDouble));
+    }
 
     public @NotNull SpawnGroupData finalizeSpawn(ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
-    //    this.randomizeAttributes(level.getRandom());
+        this.randomizeAttributes(level.getRandom());
         SnailVariant[] snailVariant = Arrays.stream(SnailVariant.values()).filter(SnailVariant::isCommon).toArray(SnailVariant[]::new);
         SnailVariant randomVariant = Util.getRandom(snailVariant, this.random);
+        Holder<Biome> biome = level.getBiome(getOnPos());
 
         this.setVariant(SnailVariant.CREAM);
-        if(level.getBiome(getOnPos()).is(GnCTags.Biomes.SNAILS_ARE_CREAM_VARIANT) && level.getBiome(getOnPos()).is(GnCTags.Biomes.SNAILS_ARE_CREAM_VARIANT)) {
+        if(biome.is(GnCTags.Biomes.SNAILS_ARE_CREAM_VARIANT) && biome.is(GnCTags.Biomes.SNAILS_ARE_CREAM_VARIANT)) {
             if(getRandom().nextInt(10) <= 4){
                 this.setVariant(SnailVariant.LEMON);
             }
-        } else if(level.getBiome(getOnPos()).is(GnCTags.Biomes.SNAILS_ARE_LEMON_VARIANT) && !level.getBiome(getOnPos()).is(GnCTags.Biomes.SNAILS_ARE_CREAM_VARIANT)){
+        } else if(biome.is(GnCTags.Biomes.SNAILS_ARE_LEMON_VARIANT) && !biome.is(GnCTags.Biomes.SNAILS_ARE_CREAM_VARIANT)) {
             this.setVariant(SnailVariant.LEMON);
-        } else if(level.getBiome(getOnPos()).is(GnCTags.Biomes.SNAILS_ARE_NAUTILUS_VARIANT)) {
+        } else if(biome.is(GnCTags.Biomes.SNAILS_ARE_NAUTILUS_VARIANT)) {
             this.setVariant(SnailVariant.NAUTILUS);
-        } else if(level.getBiome(getOnPos()).is(GnCTags.Biomes.SNAILS_ARE_GREEN_VARIANT)){
+        } else if(biome.is(GnCTags.Biomes.SNAILS_ARE_GREEN_VARIANT)) {
             this.setVariant(SnailVariant.GREEN);
-        } else if(level.getBiome(getOnPos()).is(GnCTags.Biomes.SNAILS_ARE_BLACK_VARIANT)){
+        } else if(biome.is(GnCTags.Biomes.SNAILS_ARE_BLACK_VARIANT)) {
             this.setVariant(SnailVariant.BLACK);
-        } else if(level.getBiome(getOnPos()).is(GnCTags.Biomes.SNAILS_ARE_LIME_VARIANT)) {
+        } else if(biome.is(GnCTags.Biomes.SNAILS_ARE_LIME_VARIANT)) {
             this.setVariant(SnailVariant.LIME);
+        } else if(biome.is(GnCTags.Biomes.SNAILS_ARE_PUMPKIN_VARIANT)) {
+            this.setVariant(SnailVariant.PUMPKIN);
         } else
             this.setVariant(randomVariant);
 
@@ -123,7 +132,43 @@ public class Snail extends Animal {
         } else
             baby.setVariant(((Snail) otherParent).getVariant());
 
+        this.setOffspringAttributes(otherParent, baby);
+
         return baby;
+    }
+
+    protected void setOffspringAttributes(AgeableMob parent, Snail child) {
+        this.setOffspringAttribute(parent, child, Attributes.MOVEMENT_SPEED, 0.08, 0.12);
+    }
+
+    private void setOffspringAttribute(AgeableMob parent, Snail child, Holder<Attribute> attribute, double min, double max) {
+        double d0 = createOffspringAttribute(
+                this.getAttributeBaseValue(attribute), parent.getAttributeBaseValue(attribute), min, max, this.random
+        );
+        child.getAttribute(attribute).setBaseValue(d0);
+    }
+
+    static double createOffspringAttribute(double value1, double value2, double min, double max, RandomSource random) {
+        if (max <= min) {
+            throw new IllegalArgumentException("Incorrect range for an attribute");
+        } else {
+            value1 = Mth.clamp(value1, min, max);
+            value2 = Mth.clamp(value2, min, max);
+            double d0 = 0.15 * (max - min);
+            double d1 = Math.abs(value1 - value2) + d0 * 2.0;
+            double d2 = (value1 + value2) / 2.0;
+            double d3 = (random.nextDouble() + random.nextDouble() + random.nextDouble()) / 3.0 - 0.5;
+            double d4 = d2 + d1 * d3;
+            if (d4 > max) {
+                double d6 = d4 - max;
+                return max - d6;
+            } else if (d4 < min) {
+                double d5 = min - d4;
+                return min + d5;
+            } else {
+                return d4;
+            }
+        }
     }
 
     @Override

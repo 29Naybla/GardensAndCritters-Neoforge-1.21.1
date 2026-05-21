@@ -23,6 +23,7 @@ public class SnailRenderer extends MobRenderer<Snail, SnailModel<Snail>> {
                 map.put(SnailVariant.BLACK, getRightTexture("black"));
                 map.put(SnailVariant.LIME, getRightTexture("lime"));
                 map.put(SnailVariant.LEMON, getRightTexture("lemon"));
+                map.put(SnailVariant.PUMPKIN, getRightTexture("pumpkin"));
                 map.put(SnailVariant.NAUTILUS, getRightTexture("nautilus"));
             });
 
@@ -33,6 +34,7 @@ public class SnailRenderer extends MobRenderer<Snail, SnailModel<Snail>> {
                 map.put(SnailVariant.BLACK, getLeftTexture("black"));
                 map.put(SnailVariant.LIME, getLeftTexture("lime"));
                 map.put(SnailVariant.LEMON, getLeftTexture("lemon"));
+                map.put(SnailVariant.PUMPKIN, getLeftTexture("pumpkin"));
                 map.put(SnailVariant.NAUTILUS, getLeftTexture("nautilus"));
             });
 

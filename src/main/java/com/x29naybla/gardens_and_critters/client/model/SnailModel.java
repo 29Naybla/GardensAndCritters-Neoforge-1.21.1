@@ -61,7 +61,7 @@ public class SnailModel<T extends Snail> extends HierarchicalModel<T> {
     }
 
     private void applyHeadRotation(float headYaw, float headPitch) {
-        headYaw = Mth.clamp(headYaw, -30f, 30f);
+        headYaw = Mth.clamp(headYaw, -15f, 15f);
         headPitch = Mth.clamp(headPitch, -25f, 45f);
 
         this.head.yRot = headYaw * ((float)Math.PI / 180F);

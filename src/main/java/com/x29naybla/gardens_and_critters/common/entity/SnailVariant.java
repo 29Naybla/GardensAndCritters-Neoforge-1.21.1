@@ -10,7 +10,8 @@ public enum SnailVariant {
     LIME(3, true),
     LEMON(4, true),
 
-    NAUTILUS(5, false);
+    PUMPKIN(5, false),
+    NAUTILUS(6, false);
 
     private static final SnailVariant[] BY_ID = Arrays.stream(values()).sorted(
             Comparator.comparingInt(SnailVariant::getId)).toArray(SnailVariant[]::new);

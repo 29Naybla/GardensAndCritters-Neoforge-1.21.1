@@ -46,7 +46,7 @@ public class ItemTags extends ItemTagsProvider {
                 .add(Items.CARROT)
                 .add(Items.GOLDEN_CARROT)
                 .add(Items.DANDELION)
-                .addTag(Tags.Items.EGGS);
+                .add(Items.BONE_MEAL);
 
         //Common Tags
         tag(Tags.Items.DYED_WHITE)
