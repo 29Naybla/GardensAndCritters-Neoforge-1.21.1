@@ -1,9 +1,9 @@
 package com.x29naybla.gardens_and_critters.data;
 
+import com.x29naybla.gardens_and_critters.GardensAndCritters;
 import com.x29naybla.gardens_and_critters.common.registry.GnCBlocks;
 import com.x29naybla.gardens_and_critters.common.tag.GnCTags;
 import com.x29naybla.gardens_and_critters.common.tag.CommonTags;
-import com.x29naybla.gardens_and_critters.GardensandCritters;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class BlockTags extends BlockTagsProvider {
     public BlockTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, GardensandCritters.MODID, existingFileHelper);
+        super(output, lookupProvider, GardensAndCritters.MODID, existingFileHelper);
     }
 
     @Override

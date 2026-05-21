@@ -2,7 +2,7 @@ package com.x29naybla.gardens_and_critters.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.x29naybla.gardens_and_critters.GardensandCritters;
+import com.x29naybla.gardens_and_critters.GardensAndCritters;
 import com.x29naybla.gardens_and_critters.client.animations.SnailAnimations;
 import com.x29naybla.gardens_and_critters.common.entity.Snail;
 import net.minecraft.client.model.HierarchicalModel;
@@ -12,28 +12,17 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import org.jetbrains.annotations.NotNull;
 
 public class SnailModel<T extends Snail> extends HierarchicalModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION =
-            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GardensandCritters.MODID, "snail"), "main");
+            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GardensAndCritters.MODID, "snail"), "main");
     private final ModelPart snail;
-    private final ModelPart foot;
     private final ModelPart head;
-    private final ModelPart left_eye;
-    private final ModelPart right_eye;
-    private final ModelPart right_tentacle;
-    private final ModelPart left_tentacle;
-    private final ModelPart shell;
 
     public SnailModel(ModelPart root) {
         this.snail = root.getChild("snail");
-        this.foot = this.snail.getChild("foot");
         this.head = this.snail.getChild("head");
-        this.left_eye = this.head.getChild("left_eye");
-        this.right_eye = this.head.getChild("right_eye");
-        this.right_tentacle = this.head.getChild("right_tentacle");
-        this.left_tentacle = this.head.getChild("left_tentacle");
-        this.shell = this.snail.getChild("shell");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -80,12 +69,12 @@ public class SnailModel<T extends Snail> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
         snail.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
     }
 
     @Override
-    public ModelPart root() {
+    public @NotNull ModelPart root() {
         return snail;
     }
 }

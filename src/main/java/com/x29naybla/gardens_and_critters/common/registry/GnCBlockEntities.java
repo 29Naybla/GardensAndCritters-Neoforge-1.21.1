@@ -1,6 +1,6 @@
 package com.x29naybla.gardens_and_critters.common.registry;
 
-import com.x29naybla.gardens_and_critters.GardensandCritters;
+import com.x29naybla.gardens_and_critters.GardensAndCritters;
 import com.x29naybla.gardens_and_critters.common.block.PlanterBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 
 public class GnCBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
-            DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, GardensandCritters.MODID);
+            DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, GardensAndCritters.MODID);
 
     public static final Supplier<BlockEntityType<PlanterBlockEntity>> PLANTER_BE =
             BLOCK_ENTITIES.register("planter_be", () -> BlockEntityType.Builder.of(

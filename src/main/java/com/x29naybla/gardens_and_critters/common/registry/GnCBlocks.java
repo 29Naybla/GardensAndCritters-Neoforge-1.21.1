@@ -1,6 +1,6 @@
 package com.x29naybla.gardens_and_critters.common.registry;
 
-import com.x29naybla.gardens_and_critters.GardensandCritters;
+import com.x29naybla.gardens_and_critters.GardensAndCritters;
 import com.x29naybla.gardens_and_critters.common.block.PlanterBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -13,7 +13,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.function.Supplier;
 
 public class GnCBlocks {
-    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(GardensandCritters.MODID);
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(GardensAndCritters.MODID);
 
     public static final DeferredBlock<Block> PLANTER = registerBlock("planter",
             () -> new PlanterBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA)));

@@ -1,6 +1,6 @@
 package com.x29naybla.gardens_and_critters.data;
 
-import com.x29naybla.gardens_and_critters.GardensandCritters;
+import com.x29naybla.gardens_and_critters.GardensAndCritters;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-@EventBusSubscriber(modid = GardensandCritters.MODID)
+@EventBusSubscriber(modid = GardensAndCritters.MODID)
 public class DataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event){

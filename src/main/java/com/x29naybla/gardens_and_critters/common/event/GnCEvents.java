@@ -1,6 +1,6 @@
 package com.x29naybla.gardens_and_critters.common.event;
 
-import com.x29naybla.gardens_and_critters.GardensandCritters;
+import com.x29naybla.gardens_and_critters.GardensAndCritters;
 import com.x29naybla.gardens_and_critters.client.model.SnailModel;
 import com.x29naybla.gardens_and_critters.common.entity.Snail;
 import com.x29naybla.gardens_and_critters.common.registry.GnCEntities;
@@ -22,7 +22,7 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 
-@EventBusSubscriber(modid = GardensandCritters.MODID)
+@EventBusSubscriber(modid = GardensAndCritters.MODID)
 public class GnCEvents {
 
     @SubscribeEvent

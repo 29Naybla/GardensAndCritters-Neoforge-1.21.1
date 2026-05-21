@@ -8,17 +8,16 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.ModContainer;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AddPackFindersEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforgespi.locating.IModFile;
 
-@Mod(GardensandCritters.MODID)
-public class GardensandCritters {
+@Mod(GardensAndCritters.MODID)
+public class GardensAndCritters {
     public static final String MODID = "gardens_and_critters";
 
-    public GardensandCritters(IEventBus modEventBus, ModContainer modContainer) {
+    public GardensAndCritters(IEventBus modEventBus) {
         NeoForge.EVENT_BUS.register(this);
 
         GnCItems.register(modEventBus);

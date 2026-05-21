@@ -21,6 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
@@ -53,7 +54,7 @@ public class Snail extends Animal {
     //    this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(generateSpeed(random::nextDouble));
     //}
 
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+    public @NotNull SpawnGroupData finalizeSpawn(ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
     //    this.randomizeAttributes(level.getRandom());
         SnailVariant[] snailVariant = Arrays.stream(SnailVariant.values()).filter(SnailVariant::isCommon).toArray(SnailVariant[]::new);
         SnailVariant randomVariant = Util.getRandom(snailVariant, this.random);
@@ -96,7 +97,7 @@ public class Snail extends Animal {
     }
 
     @Override
-    protected PathNavigation createNavigation(Level level) {
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
         return new WallClimberNavigation(this, level);
     }
 
@@ -106,7 +107,7 @@ public class Snail extends Animal {
     }
 
     @Override
-    public boolean canMate(Animal otherAnimal) {
+    public boolean canMate(@NotNull Animal otherAnimal) {
         if (otherAnimal == this) {
             return false;
         } else if ((this.isLeftHanded() && otherAnimal.isLeftHanded()) || (!this.isLeftHanded() && !otherAnimal.isLeftHanded())) {
@@ -115,7 +116,7 @@ public class Snail extends Animal {
     }
 
     @Override
-    public @Nullable AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
+    public @Nullable AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob otherParent) {
         Snail baby = GnCEntities.SNAIL.get().create(level);
         if(getRandom().nextInt(10) <= 4){
             baby.setVariant(this.getVariant());
@@ -155,20 +156,20 @@ public class Snail extends Animal {
 
     //Data
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DATA_FLAGS_ID, (byte)0);
         builder.define(VARIANT, 0);
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("Variant", this.getTypeVariant());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.entityData.set(VARIANT, compound.getInt("Variant"));
     }

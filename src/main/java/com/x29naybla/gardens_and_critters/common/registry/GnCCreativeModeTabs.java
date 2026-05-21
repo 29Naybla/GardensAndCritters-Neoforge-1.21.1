@@ -1,6 +1,6 @@
 package com.x29naybla.gardens_and_critters.common.registry;
 
-import com.x29naybla.gardens_and_critters.GardensandCritters;
+import com.x29naybla.gardens_and_critters.GardensAndCritters;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 public class GnCCreativeModeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB =
-            DeferredRegister.create(Registries.CREATIVE_MODE_TAB, GardensandCritters.MODID);
+            DeferredRegister.create(Registries.CREATIVE_MODE_TAB, GardensAndCritters.MODID);
 
     public static final Supplier<CreativeModeTab> GARDENS_AND_CRITTERS_BLOCKS_TAB = CREATIVE_MODE_TAB.register("gardens_and_critters_blocks_tab",
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(GnCBlocks.PLANTER.get()))

@@ -1,6 +1,6 @@
 package com.x29naybla.gardens_and_critters.common.tag;
 
-import com.x29naybla.gardens_and_critters.GardensandCritters;
+import com.x29naybla.gardens_and_critters.GardensAndCritters;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -26,7 +26,7 @@ public class GnCTags {
         public static final TagKey<Block> SNAILS_SPAWNABLE_ON = createTag("snails_spawnable_on");
 
         private static TagKey<Block> createTag(String name){
-            return BlockTags.create(ResourceLocation.fromNamespaceAndPath(GardensandCritters.MODID, name));
+            return BlockTags.create(ResourceLocation.fromNamespaceAndPath(GardensAndCritters.MODID, name));
         }
 
         private static TagKey<Block> externalBlockTag(String modId, String path) {
@@ -41,7 +41,7 @@ public class GnCTags {
         public static final TagKey<Item> SNAIL_FOOD = createTag("snail_food");
 
         private static TagKey<Item> createTag(String name){
-            return ItemTags.create(ResourceLocation.fromNamespaceAndPath(GardensandCritters.MODID, name));
+            return ItemTags.create(ResourceLocation.fromNamespaceAndPath(GardensAndCritters.MODID, name));
         }
 
         private static TagKey<Item> externalItemTag(String modId, String path) {
@@ -59,7 +59,7 @@ public class GnCTags {
         public static final TagKey<Biome> SNAILS_ARE_NAUTILUS_VARIANT = createTag("snails_are_nautilus_variant");
 
         private static TagKey<Biome> createTag(String name) {
-            return TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(GardensandCritters.MODID, name));
+            return TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(GardensAndCritters.MODID, name));
         }
     }
 
@@ -67,7 +67,7 @@ public class GnCTags {
 
 
         private static TagKey<EntityType<?>> createTag(String name) {
-            return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(GardensandCritters.MODID, name));
+            return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(GardensAndCritters.MODID, name));
         }
     }
 

@@ -6,6 +6,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -15,7 +16,7 @@ public class GnCRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     @Override
-    protected void buildRecipes(RecipeOutput recipeOutput){
+    protected void buildRecipes(@NotNull RecipeOutput recipeOutput){
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, GnCBlocks.PLANTER, 1)
                 .pattern("# #")
                 .pattern("# #")
