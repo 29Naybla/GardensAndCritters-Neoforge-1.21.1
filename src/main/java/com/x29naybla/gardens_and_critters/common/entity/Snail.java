@@ -12,6 +12,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -22,9 +24,11 @@ import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -43,7 +47,6 @@ public class Snail extends Animal {
         super(entityType, level);
     }
 
-
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 8d)
@@ -58,6 +61,15 @@ public class Snail extends Animal {
 
     protected void randomizeAttributes(RandomSource random) {
         this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(generateSpeed(random::nextDouble));
+    }
+    @Override
+    public boolean canBeCollidedWith() {
+        return this.onGround();
+    }
+
+    @Override
+    public boolean isPushable() {
+        return true;
     }
 
     public @NotNull SpawnGroupData finalizeSpawn(ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
@@ -91,7 +103,6 @@ public class Snail extends Animal {
 
     private void setupAnimationStates() {}
 
-    //Goals and AI
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
@@ -108,6 +119,24 @@ public class Snail extends Animal {
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
         return new WallClimberNavigation(this, level);
+    }
+
+    @Override
+    public @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        if(!this.level().isClientSide) {
+            if(itemstack.is(Items.BONE_MEAL)){
+                if(this.getHealth() < this.getMaxHealth()){
+                    this.heal(1);
+                    itemstack.consume(1, player);
+                    this.gameEvent(GameEvent.EAT);
+                    return InteractionResult.sidedSuccess(this.level().isClientSide());
+                } else
+                    return super.mobInteract(player, hand);
+            }
+        }
+
+        return super.mobInteract(player, hand);
     }
 
     @Override
@@ -199,7 +228,6 @@ public class Snail extends Animal {
         }
     }
 
-    //Data
     @Override
     protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
         super.defineSynchedData(builder);
@@ -251,7 +279,6 @@ public class Snail extends Animal {
         this.entityData.set(DATA_FLAGS_ID, b0);
     }
 
-    //Variants
     private int getTypeVariant(){
         return this.entityData.get(VARIANT);
     }
