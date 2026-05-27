@@ -95,7 +95,8 @@ public class BlockTags extends BlockTagsProvider {
         tag(GnCTags.Blocks.SNAILS_SPAWNABLE_ON)
                 .add(Blocks.GRASS_BLOCK)
                 .add(Blocks.COARSE_DIRT)
-                .add(Blocks.PODZOL);
+                .add(Blocks.PODZOL)
+                .add(Blocks.MYCELIUM);
 
         //Common Tags
         tag(Tags.Blocks.DYED_WHITE)

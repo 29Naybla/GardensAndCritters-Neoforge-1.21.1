@@ -82,7 +82,7 @@ runs {
         systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
     }
 
-    meRun {
+    loggedClient {
         run 'client'
         devLogin {
             enabled true

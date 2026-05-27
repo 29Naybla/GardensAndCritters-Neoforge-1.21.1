@@ -55,6 +55,7 @@ public class GnCTags {
         public static final TagKey<Biome> SNAILS_ARE_BLACK_VARIANT = createTag("snails_are_black_variant");
         public static final TagKey<Biome> SNAILS_ARE_LIME_VARIANT = createTag("snails_are_lime_variant");
         public static final TagKey<Biome> SNAILS_ARE_LEMON_VARIANT = createTag("snails_are_lemon_variant");
+        public static final TagKey<Biome> SNAILS_ARE_MUSHROOM_VARIANT = createTag("snails_are_mushroom_variant");
 
         public static final TagKey<Biome> SNAILS_ARE_PUMPKIN_VARIANT = createTag("snails_are_pumpkin_variant");
         public static final TagKey<Biome> SNAILS_ARE_NAUTILUS_VARIANT = createTag("snails_are_nautilus_variant");

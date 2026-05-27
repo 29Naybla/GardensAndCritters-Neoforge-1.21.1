@@ -41,7 +41,6 @@ import static net.neoforged.neoforge.common.NeoForge.EVENT_BUS;
 public class Snail extends Animal {
     private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Snail.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Snail.class, EntityDataSerializers.INT);
-    public final AnimationState idleAnimationState = new AnimationState();
 
     public Snail(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -95,13 +94,13 @@ public class Snail extends Animal {
             this.setVariant(SnailVariant.LIME);
         } else if(biome.is(GnCTags.Biomes.SNAILS_ARE_PUMPKIN_VARIANT)) {
             this.setVariant(SnailVariant.PUMPKIN);
+        } else if(biome.is(GnCTags.Biomes.SNAILS_ARE_MUSHROOM_VARIANT)) {
+            this.setVariant(SnailVariant.MUSHROOM);
         } else
             this.setVariant(randomVariant);
 
         return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
-
-    private void setupAnimationStates() {}
 
     @Override
     protected void registerGoals() {
@@ -251,9 +250,6 @@ public class Snail extends Animal {
     public void tick() {
         super.tick();
 
-        if(this.level().isClientSide()) {
-            this.setupAnimationStates();
-        }
         if (!this.level().isClientSide) {
             this.setClimbing(this.horizontalCollision);
         }
